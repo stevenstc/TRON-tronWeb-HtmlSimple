@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Simple TRX coneccion</title>
+
+	<script type="text/javascript" src="js/tronweb.js"></script>
+	
+</head>
+<body>
+
+
+	<button onclick="verDireccion()">Tu dirección</button> <input type="text" id="address" name="direccion" /><br /><br />
+	<button onclick="verDireccion()">Tu balance</button> <input type="number" id="balance" name="direccion" /> TRX
+
+</body>
+
+<script type="text/javascript">
+
+
+
+		function verDireccion(){
+
+			var direccion = window.tronWeb.trx.getAccount();
+
+			direccion.then(function(result) {
+			  console.log(result);
+
+			  document.getElementById('address').value = window.tronWeb.address.fromHex(result.address);
+			  document.getElementById('balance').value = result.balance/1000000;
+
+			});
+
+			
+
+
+
+			//document.write(direccion)
+				
+
+			
+
+            
+        }
+
+
+		
+	</script>
+
+	<script>
+      function load() {
+        //alert("evento load detectado!");
+        if (window.tronWeb) {
+        	console.log("Tronweb Instalado Correctamente!");
+        }else{
+        	console.log("Algo salio mal con Tronweb revisa los archivos");
+        }
+      }
+      window.onload = load;
+    </script>
+</html>
