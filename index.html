@@ -5,13 +5,14 @@
 	<title>Simple TRX coneccion</title>
 
 	<script type="text/javascript" src="js/tronweb.js"></script>
-	
+
 </head>
 <body>
 
 
 	<button onclick="verDireccion()">Tu dirección</button> <input type="text" id="address" name="direccion" /><br /><br />
-	<button onclick="verDireccion()">Tu balance</button> <input type="number" id="balance" name="direccion" /> TRX
+	<button onclick="verBalance()">Tu balance</button> <input type="number" id="balance" name="direccion" /> TRX<br /><br />
+	<button onclick="enviartrx()">Tu balance</button> <input type="number" id="balance" name="direccion" /> TRX
 
 </body>
 
@@ -27,24 +28,27 @@
 			  console.log(result);
 
 			  document.getElementById('address').value = window.tronWeb.address.fromHex(result.address);
+
+			});
+
+		}
+
+		function verBalance(){
+
+			var direccion = window.tronWeb.trx.getAccount();
+
+			direccion.then(function(result) {
+			  console.log(result);
+
 			  document.getElementById('balance').value = result.balance/1000000;
 
 			});
 
-			
+
+    }
 
 
 
-			//document.write(direccion)
-				
-
-			
-
-            
-        }
-
-
-		
 	</script>
 
 	<script>
