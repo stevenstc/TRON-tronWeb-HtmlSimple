@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Simple TRX coneccion</title>
+
+</head>
+<body>
+
+	<button onclick="verDireccion()">Tu dirección</button> <input type="text" id="address" name="direccion" /><br /><br />
+	<button onclick="verBalance()">Tu balance</button> <input type="number" id="balance" name="saldo" /> TRX<br /><br />
+	<br /><br />
+	Wallet: <input type="text" id="destino" name="wallet" /><br /><br />
+	<button onclick="enviartrx()">Enviar</button> <input type="number" id="trx" name="trx" /> TRX
+
+</body>
+
+<script type="text/javascript">
+
+		function verDireccion(){
+
+			var direccion = window.tronWeb.trx.getAccount();
+
+			direccion.then(function(result) {
+			  console.log(result);
+
+			  document.getElementById('address').value = window.tronWeb.address.fromHex(result.address);
+
+			});
+
+		}
+
+		function verBalance(){
+
+			var direccion = window.tronWeb.trx.getAccount();
+
+			direccion.then(function(result) {
+			  console.log(result);
+
+			  document.getElementById('balance').value = result.balance/1000000;
+
+			});
+
+
+    }
+
+		function enviartrx(){
+
+			var trx = document.getElementById('trx').value;
+
+			var destino = document.getElementById('destino').value;
+
+			var direccion = window.tronWeb.trx.sendTransaction(destino, trx*1000000);
+
+			direccion.then(function(result) {
+			  console.log(result);
+
+				if (result.result) {
+					alert("tranferencia exitosa");
+				}else{
+					alert("tranferencia fallida");
+				}
+
+
+			});
+
+    }
+
+
+
+	</script>
+
+
+
+	<script type="text/javascript">
+      function load() {
+
+        if (window.tronWeb) {
+        	console.log("Conectado  Correctamente!");
+					alert("Tronlink Conectado Correctamente!");
+        }else{
+        	console.log("Algo salio mal con Tronlink revisa los archivos");
+					alert("La pagina debe estar en un servidor web para conectar");
+        }
+      }
+      window.onload = load;
+    </script>
+</html>
