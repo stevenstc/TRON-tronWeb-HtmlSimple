@@ -14,6 +14,11 @@
 	<h1>envios</h1>
 	Wallet: <input type="text" id="destino" name="wallet" /><br /><br />
 	<button onclick="enviarToken()">Enviar</button> <input type="number" id="gpx" name="trx" /> Token
+	<br /><br />
+	<h1>Congelar</h1>
+	cantidad: <input type="number" id="cantidad" name="amount" /><br /><br />
+	tiempo: <input type="number" id="tiempo" name="tiempo" /> meses<br /><br />
+	<button onclick="congelar()">freez</button> 
 
 
 	
@@ -99,6 +104,43 @@
 
 
 	}
+
+	async function congelar(){
+
+	var contract = await window.tronWeb.contract().at("TDDkSxfkN5DbqXK3tHSZFXRMcT9aS6m9qz");
+
+	console.log(contract);
+
+	var cantidad = document.getElementById('cantidad').value;
+
+	var tiempo = document.getElementById('tiempo').value;
+
+	cantidad = parseInt(cantidad*10**6);
+
+	if (tiempo >= 12) {
+		var envio = contract.freezGPXS(cantidad, tiempo*30*86400).send()
+
+		envio.then(function(result) {
+		console.log(result);
+
+			if (result.result) {
+				return alert("tranferencia exitosa");
+			}else{
+				return alert("tranferencia fallida");
+			}
+
+
+		});
+		
+	}else{
+		return alert("parametros incorrectos");
+	}
+
+	
+
+
+
+}
 
 		
 
